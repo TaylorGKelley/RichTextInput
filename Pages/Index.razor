@@ -1,0 +1,380 @@
+﻿@page "/"
+
+<PageTitle>TextInput</PageTitle>
+
+<main style="padding: 4rem 0;">
+    <h1 style="margin-bottom: 3rem;">RichTextInput testing!</h1>
+
+    <aside class="editor-container">
+        <div class="toolbar">
+            <button class="square" @onclick="@(() => Apply("bold"))"><b>b</b></button>
+            <button class="square" @onclick="@(() => Apply("italic"))"><i>i</i></button>
+            <button class="square" @onclick="@(() => Apply("underline"))"><u>u</u></button>
+            <select id="style-selector" @onchange="@BlockChange">
+                <option value="p">Paragraph</option>
+                <option value="h1">Heading 1</option>
+                <option value="h2">Heading 2</option>
+                <option value="h3">Heading 3</option>
+            </select>
+            <button @onclick="@InsertImage">img</button>
+        </div>
+        <div @ref="@editorRef" @oninput="@SaveContent" id="editor" contenteditable>
+            <p> </p>
+        </div>
+    </aside>
+
+    <style type="text/css">
+        .editor-container {
+            position: relative;
+            width: 100%;
+            border: 1px solid #666;
+            border-radius: 1rem;
+            overflow: hidden;
+        }
+
+        .toolbar {
+            width: 100%;
+            height: 3rem;
+            padding: 0.5rem 1rem;
+            box-shadow: 4px 4px 20px 0px #0002;
+            position: relative;
+            z-index: 2;
+        }
+
+            .toolbar > button {
+                border: 1px solid #555;
+                background-color: white;
+                border-radius: 0.5rem;
+                outline: none;
+                transition: filter 0.15 ease-out;
+            }
+
+                .toolbar > button.square {
+                    aspect-ratio: 1;
+                }
+
+                .toolbar > button.active {
+                    filter: brightness(0.9);
+                }
+
+        #editor {
+            padding: 2rem 1.5rem;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+            #editor:focus {
+                outline: none;
+                background-color: #fcfcfc;
+                transition: all 0.15s ease-out;
+            }
+
+            #editor h1 {
+                content: "";
+                height: 2.5rem;
+                width: 100%;
+            }
+
+            #editor h2 {
+                content: "";
+                height: 2rem;
+                width: 100%;
+            }
+
+            #editor h3 {
+                content: "";
+                height: 1.75rem;
+                width: 100%;
+            }
+
+            #editor p {
+                content: "";
+                height: 1rem;
+                width: 100%;
+            }
+    </style>
+
+    @* TESTING *@
+    <p style="color: lightcoral; margin-top: 5rem;">This is just for testing</p>
+    <button @onclick="@ToggleContent">@(contentShown ? "Hide" : "Show")</button>
+    @if (contentShown)
+    {
+        <div>
+            @subRenderHTML(contentHtml)
+        </div>
+    }
+    @* END TESTING *@
+</main>
+
+<script type="text/javascript">
+    window.applyStyle = (style) => {
+        let selection = window.getSelection();
+        if (selection.rangeCount > 0) {
+            let range = selection.getRangeAt(0);
+
+            let el;
+            switch (style) {
+                case "bold":
+                    // span.style.fontWeight = "bold";
+                    el = document.createElement("b")
+                    break;
+                case "italic":
+                    // span.style.fontStyle = "italic";
+                    el = document.createElement("i");
+                    break;
+                case "underline":
+                    // span.style.textDecoration = "underline";
+                    el = document.createElement("u");
+                    break;
+                // case "heading1":
+                //     el = document.createElement("h1");
+                //     el.style.display = "block";
+                //     el.style.fontSize = '2.5rem'
+                //     break;
+                // case "heading2":
+                //     el = document.createElement("h2");
+                //     el.style.display = "block";
+                //     el.style.fontSize = '2rem'
+                //     break;
+                // case "heading3":
+                //     el = document.createElement("h3");
+                //     el.style.display = "block";
+                //     el.style.fontSize = '1.75rem'
+                //     break;
+            }
+            el.textContent = range.toString();
+
+            range.deleteContents();
+            range.insertNode(el);
+
+            // range.surroundContents(el);
+
+            // let newRange = document.createRange();
+            // newRange.setStartAfter(el);
+
+            // selection.removeAllRanges();
+            // selection.addRange(newRange);
+        }
+    }
+
+    window.applyBlockStyle = (tagName) => {
+        const editorId = 'editor';
+        const selection = window.getSelection();
+        const editor = document.getElementById(editorId);
+        if (selection.rangeCount > 0) {
+            const range = selection.getRangeAt(0);
+            const container = range.commonAncestorContainer;
+
+            if (container.parentElement.id !== editorId) {
+                console.log(container.parentElement);
+                const editorRange = document.createRange();
+                editorRange.setStart(editor.lastChild, editor.lastChild.length);
+                editorRange.setEnd(editor.lastChild, editor.lastChild.length);
+
+                selection.removeAllRanges();
+                selection.addRange(editorRange);
+            }
+
+            if (container.parentElement.id === editorId) {
+
+                // If the container is a text node, find its parent element
+                let blockElement = container.nodeType === 3 ? container.parentElement : container;
+
+                // Ensure we get the containing block-level element
+                while (blockElement && !blockElement.matches('div, p, h1, h2, h3')) {
+                    if (blockElement.parentElement.id != editorId) {
+                        blockElement = blockElement.parentElement;
+                    }
+                }
+
+                if (blockElement) {
+                    // Replace the block-level element with a new block
+                    let newElement = document.createElement(tagName);
+                    switch (tagName) {
+                        case 'h1':
+                            newElement.style.display = "block";
+                            // newElement.style.fontSize = '2.5rem';
+                            newElement.style.marginBottom = '2.75rem';
+                            break;
+                        case 'h2':
+                            newElement.style.display = "block";
+                            // newElement.style.fontSize = '2rem';
+                            newElement.style.marginBottom = '2.25rem';
+                            break;
+                        case 'h3':
+                            newElement.style.display = "block";
+                            // newElement.style.fontSize = '1.75rem'
+                            newElement.style.marginBottom = '2rem';
+                            break;
+                        case 'p':
+                            newElement.style.display = "block";
+                            // newElement.style.fontSize = '1rem';
+                            newElement.style.marginBottom = '1.25rem';
+                            break;
+                    }
+                    newElement.textContent = blockElement.textContent // Transfer the content
+
+                    // Replace the old element with the new one
+                    blockElement.parentNode.replaceChild(newElement, blockElement);
+
+                    // Move the cursor to the end of the new block element
+                    const newRange = document.createRange();
+                    newRange.setStart(newElement.lastChild, newElement.lastChild.length);
+                    newRange.setEnd(newElement.lastChild, newElement.lastChild.length);
+                    selection.removeAllRanges();
+                    selection.addRange(newRange);
+                }
+            }
+        }
+    }
+
+    window.insertImage = (url, alt, width = "400px") => {
+        let selection = window.getSelection();
+
+        if (selection.rangeCount > 0) {
+            let range = selection.getRangeAt(0);
+
+            let editor = document.getElementById("editor");
+            let commonAncestor = range.commonAncestorContainer;
+            if (!editor.contains(commonAncestor)) {
+                const newRange = document.createRange();
+                newRange.setStartAfter(editor.childNodes[editor.childNodes.length - 1]);
+
+                selection.removeAllRanges();
+                selection.addRange(newRange);
+                insertImage(url, alt);
+            }
+
+            let img = document.createElement("img");
+            img.src = url;
+            img.alt = alt || "Inserted Image";
+            img.style.maxWidth = "100%";
+            img.style.width = width;
+            img.style.display = 'block';
+            img.style.marginInline = 'auto';
+            img.style.marginBlock = '5px';
+            img.style.userSelect = 'none';
+
+            range.insertNode(img);
+
+            const newRange = document.createRange();
+            newRange.setStartAfter(img);
+
+            selection.removeAllRanges();
+            selection.addRange(newRange);
+        }
+    }
+
+    window.saveContent = () => {
+        const editor = document.getElementById('editor');
+        return editor.innerHTML || "";
+    }
+
+    window.InitKeyBindings = () => {
+        window.addEventListener('keypress', (e) => {
+            if (e.ctrlKey) {
+                switch (e.key.toLowerCase()) {
+                    case "b":
+                        e.preventDefault();
+                        return applyStyle("bold");
+                        break;
+                    case "i":
+                        e.preventDefault();
+                        return applyStyle("italic");
+                        break;
+                    case "u":
+                        e.preventDefault();
+                        return applyStyle("underline");
+                        break;
+                }
+            } else if (e.key.toLowerCase() === 'enter') {
+                console.log('Enter press handled');
+                const resetTagName = 'p';
+
+                const textStyleSelect = document.getElementById('style-selector');
+                textStyleSelect.value = resetTagName;
+                // window.applyBlockStyle(resetTagName)
+            }
+        });
+    }
+</script>
+
+@code {
+    [Inject] private IJSRuntime jsRuntime { get; set; }
+
+    private ElementReference editorRef { get; set; }
+
+    private string contentHtml = "";
+    public bool contentShown = false;
+
+
+    protected override Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            jsRuntime.InvokeVoidAsync("InitKeyBindings");
+        }
+
+        return base.OnAfterRenderAsync(firstRender);
+    }
+
+    private async void SaveContent()
+    {
+        contentHtml = await jsRuntime.InvokeAsync<System.String>("saveContent");
+
+        StateHasChanged(); // REMOVE
+    }
+
+    private async Task Apply(string style)
+    {
+        await jsRuntime.InvokeVoidAsync("applyStyle", style);
+        editorRef.FocusAsync();
+    }
+
+    private async Task BlockChange(ChangeEventArgs e)
+    {
+        await jsRuntime.InvokeVoidAsync("applyBlockStyle", e.Value.ToString());
+        editorRef.FocusAsync();
+    }
+
+    private async Task InsertImage()
+    {
+        string url = await PromptForImage("Image URL:");
+        string alt = await PromptForImage("Image Alt:");
+        string width = await PromptForImage("Image Width: (i.e. 500px or 100%)");
+
+        if (!string.IsNullOrEmpty(url))
+        {
+            await jsRuntime.InvokeVoidAsync("insertImage", url, alt, width);
+        }
+    }
+
+    private async Task<string> PromptForImage(string message)
+    {
+        return await jsRuntime.InvokeAsync<string>("prompt", message);
+    }
+
+    private void ToggleContent()
+    {
+        contentShown = !contentShown;
+        StateHasChanged();
+        return;
+    }
+
+    private string subHTMLParser(string input)
+    {
+        string sanitized = System.Text.RegularExpressions.Regex.Replace(input, "<script.*?>.*?</script>", "", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+
+        sanitized = System.Text.RegularExpressions.Regex.Replace(sanitized, "on[a-z]+\\s*=\\s*\"[^\"]*\"", "", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+
+        sanitized = System.Text.RegularExpressions.Regex.Replace(sanitized, "<(iframe|object|embed|link|style).*?>.*?</\\1>", "", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+
+        // sanitized = System.Text.RegularExpressions.Regex.Replace(sanitized, "&[a-z0-9]+;", "", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+
+        return sanitized;
+    }
+
+    private RenderFragment subRenderHTML(string input)
+    {
+        return new Microsoft.AspNetCore.Components.RenderFragment(b => b.AddMarkupContent(0, input));
+    }
+}

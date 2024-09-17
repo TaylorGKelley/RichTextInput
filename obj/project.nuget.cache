@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "dgSpecHash": "mlFXnMa36zk=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\taylor.kelley\\Documents\\IndependentStudies\\ASP.NET Core Study\\RichTextInput\\RichTextInput.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\taylor.kelley\\.nuget\\packages\\microsoft.aspnetcore.authentication.negotiate\\6.0.33\\microsoft.aspnetcore.authentication.negotiate.6.0.33.nupkg.sha512",
+    "C:\\Users\\taylor.kelley\\.nuget\\packages\\microsoft.aspnetcore.connections.abstractions\\6.0.33\\microsoft.aspnetcore.connections.abstractions.6.0.33.nupkg.sha512",
+    "C:\\Users\\taylor.kelley\\.nuget\\packages\\microsoft.extensions.features\\6.0.33\\microsoft.extensions.features.6.0.33.nupkg.sha512",
+    "C:\\Users\\taylor.kelley\\.nuget\\packages\\system.directoryservices.protocols\\6.0.2\\system.directoryservices.protocols.6.0.2.nupkg.sha512",
+    "C:\\Users\\taylor.kelley\\.nuget\\packages\\system.io.pipelines\\6.0.3\\system.io.pipelines.6.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}

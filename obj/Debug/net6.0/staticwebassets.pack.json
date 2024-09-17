@@ -1,0 +1,77 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\taylor.kelley\\Documents\\IndependentStudies\\ASP.NET Core Study\\RichTextInput\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\RichTextInput.bundle.scp.css",
+      "PackagePath": "staticwebassets\\RichTextInput.bundle.scp.css"
+    },
+    {
+      "Id": "C:\\Users\\taylor.kelley\\Documents\\IndependentStudies\\ASP.NET Core Study\\RichTextInput\\wwwroot\\css\\bootstrap\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap.min.css"
+    },
+    {
+      "Id": "C:\\Users\\taylor.kelley\\Documents\\IndependentStudies\\ASP.NET Core Study\\RichTextInput\\wwwroot\\css\\bootstrap\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\taylor.kelley\\Documents\\IndependentStudies\\ASP.NET Core Study\\RichTextInput\\wwwroot\\css\\open-iconic\\FONT-LICENSE",
+      "PackagePath": "staticwebassets\\css\\open-iconic"
+    },
+    {
+      "Id": "C:\\Users\\taylor.kelley\\Documents\\IndependentStudies\\ASP.NET Core Study\\RichTextInput\\wwwroot\\css\\open-iconic\\ICON-LICENSE",
+      "PackagePath": "staticwebassets\\css\\open-iconic"
+    },
+    {
+      "Id": "C:\\Users\\taylor.kelley\\Documents\\IndependentStudies\\ASP.NET Core Study\\RichTextInput\\wwwroot\\css\\open-iconic\\README.md",
+      "PackagePath": "staticwebassets\\css\\open-iconic\\README.md"
+    },
+    {
+      "Id": "C:\\Users\\taylor.kelley\\Documents\\IndependentStudies\\ASP.NET Core Study\\RichTextInput\\wwwroot\\css\\open-iconic\\font\\css\\open-iconic-bootstrap.min.css",
+      "PackagePath": "staticwebassets\\css\\open-iconic\\font\\css\\open-iconic-bootstrap.min.css"
+    },
+    {
+      "Id": "C:\\Users\\taylor.kelley\\Documents\\IndependentStudies\\ASP.NET Core Study\\RichTextInput\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.eot",
+      "PackagePath": "staticwebassets\\css\\open-iconic\\font\\fonts\\open-iconic.eot"
+    },
+    {
+      "Id": "C:\\Users\\taylor.kelley\\Documents\\IndependentStudies\\ASP.NET Core Study\\RichTextInput\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.otf",
+      "PackagePath": "staticwebassets\\css\\open-iconic\\font\\fonts\\open-iconic.otf"
+    },
+    {
+      "Id": "C:\\Users\\taylor.kelley\\Documents\\IndependentStudies\\ASP.NET Core Study\\RichTextInput\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.svg",
+      "PackagePath": "staticwebassets\\css\\open-iconic\\font\\fonts\\open-iconic.svg"
+    },
+    {
+      "Id": "C:\\Users\\taylor.kelley\\Documents\\IndependentStudies\\ASP.NET Core Study\\RichTextInput\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.ttf",
+      "PackagePath": "staticwebassets\\css\\open-iconic\\font\\fonts\\open-iconic.ttf"
+    },
+    {
+      "Id": "C:\\Users\\taylor.kelley\\Documents\\IndependentStudies\\ASP.NET Core Study\\RichTextInput\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.woff",
+      "PackagePath": "staticwebassets\\css\\open-iconic\\font\\fonts\\open-iconic.woff"
+    },
+    {
+      "Id": "C:\\Users\\taylor.kelley\\Documents\\IndependentStudies\\ASP.NET Core Study\\RichTextInput\\wwwroot\\css\\site.css",
+      "PackagePath": "staticwebassets\\css\\site.css"
+    },
+    {
+      "Id": "C:\\Users\\taylor.kelley\\Documents\\IndependentStudies\\ASP.NET Core Study\\RichTextInput\\wwwroot\\favicon.ico",
+      "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.RichTextInput.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.build.RichTextInput.props",
+      "PackagePath": "build\\RichTextInput.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.buildMultiTargeting.RichTextInput.props",
+      "PackagePath": "buildMultiTargeting\\RichTextInput.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.buildTransitive.RichTextInput.props",
+      "PackagePath": "buildTransitive\\RichTextInput.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
